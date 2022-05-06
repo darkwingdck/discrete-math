@@ -1,5 +1,5 @@
 def request_program():
-    print('Select program:\n1. Number to bit scale\n2. Set operations')
+    print('Select program:\n1. Number to bit scale\n2. Set operations\n3. Subset generation')
     program_num = int(input('>> '))
     return program_num
 
@@ -9,6 +9,16 @@ def bit_scale(array):
     for i in range(1, max(array) + 1):
         ans.append(1 if i in array else 0)
     return ans
+
+
+def subset_generation():
+    print("Enter cardinality of the set")
+    cardinality = int(input(">> "))
+    bit_ans = []
+
+    for i in range(2**cardinality):
+        bit_ans.append(int(bin(i)[2:]))
+    return bit_ans
 
 
 class Operation:
@@ -31,7 +41,6 @@ class Operation:
             return self.intersection(bit_array1, bit_array2)
         elif operation_num == 4:
             return self.difference(bit_array1, bit_array2)
-
 
     @staticmethod
     def union(bit_array1, bit_array2):
@@ -92,6 +101,8 @@ def main():
         print(bit_scale(array))
     elif program_num == 2:
         print(set_operations())
+    elif program_num == 3:
+        print(subset_generation())
 
 
 if __name__ == "__main__":
