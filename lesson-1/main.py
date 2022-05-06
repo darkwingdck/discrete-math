@@ -17,17 +17,19 @@ class Operation:
         operation_num = int(input("\t>> "))
         array1 = [int(i) for i in input("\tEnter first set\n\t>>").split()]
         array2 = [int(i) for i in input("\tEnter second set\n\t>>").split()]
-        if operation_num == 1:
-            return self.union(array1, array2)
-
-    @staticmethod
-    def union(array1, array2):
         bit_array1 = bit_scale(array1)
         bit_array2 = bit_scale(array2)
         if len(bit_array1) < len(bit_array2):
             bit_array1.extend([0] * (len(bit_array2) - len(bit_array1)))
         elif len(bit_array1) > len(bit_array2):
             bit_array2.extend([0] * (len(bit_array1) - len(bit_array2)))
+        if operation_num == 1:
+            return self.union(bit_array1, bit_array2)
+        elif operation_num == 2:
+            return self.intersection(bit_array1, bit_array2)
+
+    @staticmethod
+    def union(bit_array1, bit_array2):
         bit_ans = []
         ans = []
         for i in range(len(bit_array1)):
@@ -37,6 +39,16 @@ class Operation:
                 ans.append(i+1)
         return ans
 
+    @staticmethod
+    def intersection(bit_array1, bit_array2):
+        bit_ans = []
+        ans = []
+        for i in range(len(bit_array1)):
+            bit_ans.append(bit_array1[i] and bit_array2[i])
+        for i in range(len(bit_ans)):
+            if bit_ans[i] == 1:
+                ans.append(i+1)
+        return ans
 
 
 def set_operations():
