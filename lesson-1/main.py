@@ -30,7 +30,7 @@ def gray_code():
   cardinality = int(input(">> "))
   b = [0] * cardinality
   ans = []
-  for i in range(1, 2**cardinality):
+  for i in range(1, 2 ** cardinality):
     p = utils.Q(i)
     b[p] = 1 - b[p]
     c = "".join(map(str, b))
@@ -42,10 +42,10 @@ class Operation:
   def choose_operation(self):
     print("\tSelect operation:\n\t1. Union\n\t2. Intersection\n\t3. Сomplementation\n\t4. Difference")
     operation_num = int(input("\t>> "))
-    array1 = [int(i) for i in input("\tEnter first set\n\t>>").split()]
+    array1 = [int(i) for i in input("\tEnter first set\n\t>> ").split()]
     if operation_num == 3:
       return self.complementation(array1)
-    array2 = [int(i) for i in input("\tEnter second set\n\t>>").split()]
+    array2 = [int(i) for i in input("\tEnter second set\n\t>> ").split()]
     bit_array1 = bit_scale(array1)
     bit_array2 = bit_scale(array2)
     if len(bit_array1) < len(bit_array2):
@@ -114,10 +114,10 @@ def set_operations():
 def main():
   program_num = request_program()
   if program_num == 1:
-    array = [int(i) for i in input("Enter set\n>>").split()]
+    array = [int(i) for i in input("Enter set\n>> ").split()]
     print(bit_scale(array))
   elif program_num == 2:
-    print(set_operations())
+    print('\t' + str(set_operations()))
   elif program_num == 3:
     print(subset_generation())
   elif program_num == 4:
