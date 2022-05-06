@@ -1,5 +1,8 @@
+import utils
+
 def request_program():
-    print('Select program:\n1. Number to bit scale\n2. Set operations\n3. Subset generation')
+    print('Select program:\n1. Number to bit scale\n2. Set operations\n3. Subset generation\n4. Building a '
+          'binary Gray code')
     program_num = int(input('>> '))
     return program_num
 
@@ -19,6 +22,19 @@ def subset_generation():
     for i in range(2**cardinality):
         bit_ans.append(int(bin(i)[2:]))
     return bit_ans
+
+
+def gray_code():
+    print("Enter cardinality of the set")
+    cardinality = int(input(">> "))
+    b = [0] * cardinality
+    ans = []
+    for i in range(1, 2**cardinality):
+        p = utils.Q(i)
+        b[p] = 1 - b[p]
+        c = "".join(map(str, b))
+        ans.append(int(c))
+    return ans
 
 
 class Operation:
@@ -103,6 +119,8 @@ def main():
         print(set_operations())
     elif program_num == 3:
         print(subset_generation())
+    elif program_num == 4:
+        print(gray_code())
 
 
 if __name__ == "__main__":
