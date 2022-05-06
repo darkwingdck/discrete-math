@@ -16,6 +16,8 @@ class Operation:
         print("\tSelect operation:\n\t1. Union\n\t2. Intersection\n\t3. Сomplementation\n\t4. Difference")
         operation_num = int(input("\t>> "))
         array1 = [int(i) for i in input("\tEnter first set\n\t>>").split()]
+        if operation_num == 3:
+            return self.complementation(array1)
         array2 = [int(i) for i in input("\tEnter second set\n\t>>").split()]
         bit_array1 = bit_scale(array1)
         bit_array2 = bit_scale(array2)
@@ -27,6 +29,9 @@ class Operation:
             return self.union(bit_array1, bit_array2)
         elif operation_num == 2:
             return self.intersection(bit_array1, bit_array2)
+        elif operation_num == 4:
+            return self.difference(bit_array1, bit_array2)
+
 
     @staticmethod
     def union(bit_array1, bit_array2):
@@ -45,6 +50,30 @@ class Operation:
         ans = []
         for i in range(len(bit_array1)):
             bit_ans.append(bit_array1[i] and bit_array2[i])
+        for i in range(len(bit_ans)):
+            if bit_ans[i] == 1:
+                ans.append(i+1)
+        return ans
+
+    @staticmethod
+    def complementation(array):
+        bit_array = bit_scale(array)
+        bit_ans = [bin(bit_array[i]) for i in range(len(bit_array))]
+        ans = []
+        for i in range(len(bit_ans)):
+            if bit_ans[i] == '0b0':
+                ans.append(i + 1)
+        return ans
+
+    @staticmethod
+    def difference(bit_array1, bit_array2):
+        bit_ans = []
+        ans = []
+        for i in range(len(bit_array1)):
+            if bit_array1[i] and not bit_array2[i]:
+                bit_ans.append(1)
+            else:
+                bit_ans.append(0)
         for i in range(len(bit_ans)):
             if bit_ans[i] == 1:
                 ans.append(i+1)
