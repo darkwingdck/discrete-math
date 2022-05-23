@@ -1,8 +1,5 @@
-graph = {'0': set(['1', '2']),
-         '1': set(['0', '3', '4']),
-         '2': set(['0']),
-         '3': set(['1', '4']),
-         '4': set(['1', '3'])}
+from pyvis.network import Network
+import networkx as nx
 
 
 def adjacency_matrix(graph: dict):
@@ -19,6 +16,20 @@ def adjacency_matrix(graph: dict):
   return adjacency_matrix
 
 
+def show_graph(graph):
+  nx_graph = nx.cycle_graph(0)
+  keys = list(graph.keys())
+  for i in keys:
+    nx_graph.add_node(i, label=str(i), size=10)
+  for vertex in keys:
+    for neighbour in graph[vertex]:
+      nx_graph.add_edge(vertex, neighbour, size=10)
+  nt = Network('100%', '100%', bgcolor='#222222', font_color='white')
+  nt.from_nx(nx_graph)
+  nt.show('nx.html')
+  
+  
+
 def main():
   # Input graph
   graph = {}
@@ -29,6 +40,7 @@ def main():
     neighbours = map(int, input().split())
     graph[i] = set(neighbours)
   print('Your graph: ', graph)
+  show_graph(graph)
   # Adjacency matrix
   adjacency_matrix_graph = adjacency_matrix(graph)
   for i in range(len(adjacency_matrix_graph)):
@@ -45,6 +57,7 @@ def main():
       if i in subgraph[vertex]:
         subgraph[vertex].remove(i)
   print('Subgraph', subgraph)
+  show_graph(subgraph)
   adjacency_matrix_subgraph = adjacency_matrix(subgraph)
   for i in range(len(adjacency_matrix_subgraph)):
     print(*adjacency_matrix_subgraph[i])
